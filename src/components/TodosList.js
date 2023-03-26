@@ -1,10 +1,18 @@
 import PropTypes from 'prop-types';
 import TodoItem from './TodoItem';
 
-const TodosList = ({ todosProps, handleChange, delTodo }) => (
+const TodosList = ({
+  todosProps, handleChange, delTodo, setUpdate,
+}) => (
   <ul>
     {todosProps.map((todo) => (
-      <TodoItem key={todo.id} itemProp={todo} handleChange={handleChange} delTodo={delTodo} />
+      <TodoItem
+        key={todo.id}
+        itemProp={todo}
+        handleChange={handleChange}
+        delTodo={delTodo}
+        setUpdate={setUpdate}
+      />
     ))}
   </ul>
 );
@@ -12,6 +20,7 @@ const TodosList = ({ todosProps, handleChange, delTodo }) => (
 TodosList.propTypes = {
   handleChange: PropTypes.func.isRequired,
   delTodo: PropTypes.func.isRequired,
+  setUpdate: PropTypes.func.isRequired,
   todosProps: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.string.isRequired,
