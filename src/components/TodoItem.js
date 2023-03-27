@@ -1,14 +1,19 @@
 import PropTypes from 'prop-types';
 import { useState } from 'react';
+import { useAuthContext } from '../context/AuthContext';
+import AiFillEdit from './AiFillEdit';
 import styles from '../styles/TodoItem.module.scss';
 
-const TodoItem = ({ itemProp, handleChange, delTodo, setUpdate }) => {
+const TodoItem = ({
+  itemProp, handleChange, delTodo, setUpdate,
+}) => {
   const completedStyle = {
     fontStyle: 'italic',
     color: '#595959',
     opacity: 0.4,
     textDecoration: 'line-through',
   };
+  const { user } = useAuthContext();
   const [editing, setEditing] = useState(false);
   const handleEditing = () => {
     setEditing(true);
@@ -35,9 +40,12 @@ const TodoItem = ({ itemProp, handleChange, delTodo, setUpdate }) => {
           checked={itemProp.completed}
           onChange={() => handleChange(itemProp.id)}
         />
-        <button onClick={handleEditing} type="button">
-          Edit
-        </button>
+        {user && (
+          <button onClick={handleEditing} type="button">
+            {' '}
+            <AiFillEdit style={{ color: '#5e5e5e', fontSize: '16px' }} />
+          </button>
+        )}
         <button onClick={() => delTodo(itemProp.id)} type="button">
           Delete
         </button>
